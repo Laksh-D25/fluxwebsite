@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import dynamic from "next/dynamic";
 import Model3D from "./Model3D";
 import Loading3DModel from "./Loading3DModel";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 
 const StarField = dynamic(() => import("./StarField"), { ssr: false });
 
@@ -13,7 +13,6 @@ export default function HeroSection() {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [hasInteracted, setHasInteracted] = useState(false);
 
-    // Try to play audio whenever there's any interaction
     const tryPlayAudio = async () => {
         try {
             if (audioRef.current && !hasInteracted) {
@@ -26,7 +25,6 @@ export default function HeroSection() {
         }
     };
 
-    // Add interaction listeners to the whole page
     useEffect(() => {
         const interactions = ['click', 'touchstart', 'mousemove', 'keydown'];
         
@@ -45,6 +43,12 @@ export default function HeroSection() {
         };
     }, [hasInteracted]);
 
+    const MemoizedStarField = useMemo(() => (
+        <Suspense fallback={null}>
+            <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />
+        </Suspense>
+    ), []);
+
     return (
         <div className="fixed inset-0 w-full h-full bg-black overflow-hidden">
             <audio
@@ -53,9 +57,7 @@ export default function HeroSection() {
                 loop
             />
             <div className="absolute inset-0 z-0">
-                <Suspense fallback={null}>
-                    <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />
-                </Suspense>
+                {MemoizedStarField}
             </div>
             <div className="absolute inset-0 z-10">
                 <Canvas className="w-full h-full" camera={{ position: [0, 0, 10], fov: 45 }}>

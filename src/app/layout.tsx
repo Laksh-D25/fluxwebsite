@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
-import Link from "next/link";
+import Navbar from "./components/Navbar";
 
 const myFont = localFont({
   src: '../../public/arian.ttf',
@@ -23,13 +23,7 @@ export default function RootLayout({
       <body
         className={myFont.className}
       >
-        <nav className="fixed top-0 left-0 w-full flex gap-6 p-4 text-white z-50">
-          <Link href="/">Home</Link>
-          <Link href="/events">Events</Link>
-          <Link href="/events">Registrations</Link>
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-        </nav>
+        <Navbar/>
         {children}
       </body>
     </html>

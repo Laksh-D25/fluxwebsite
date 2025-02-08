@@ -29,7 +29,7 @@ export default function EventsPage() {
         <Suspense fallback={null}>
             <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />
         </Suspense>
-    ), []); // Empty dependency array means this will only be created once
+    ), []);
 
     const nextEvent = () => {
         const newIndex = (currentIndex + 1) % places.length;
