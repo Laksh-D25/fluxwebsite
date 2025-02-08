@@ -1,0 +1,173 @@
+{
+    "asset": {
+        "version": "2.0",
+        "generator": "Open Asset Import Library (assimp v5.4.0)"
+    },
+    "extensionsUsed": [
+        "KHR_materials_volume",
+        "FB_ngon_encoding"
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1153,
+            "type": "VEC3",
+            "max": [
+                1.9485782384872437,
+                0.07000000029802322,
+                0.0007898894255049527
+            ],
+            "min": [
+                -0.0007898894255049527,
+                -0.07000000029802322,
+                -0.7748815417289734
+            ]
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1153,
+            "type": "VEC3",
+            "max": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "min": [
+                -1.0,
+                -1.0,
+                -1.0
+            ]
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 1153,
+            "type": "VEC2",
+            "max": [
+                1.0,
+                1.0
+            ],
+            "min": [
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 3516,
+            "type": "SCALAR",
+            "max": [
+                1152
+            ],
+            "min": [
+                0
+            ]
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 50960,
+            "uri": "flux_logo_0.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 13836,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 13836,
+            "byteLength": 13836,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 27672,
+            "byteLength": 9224,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 36896,
+            "byteLength": 14064,
+            "target": 34963
+        }
+    ],
+    "materials": [
+        {
+            "name": "Material.001",
+            "pbrMetallicRoughness": {
+                "metallicFactor": 0.800000011920929
+            },
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "meshes[0]",
+            "primitives": [
+                {
+                    "mode": 4,
+                    "material": 0,
+                    "indices": 3,
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    }
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "flux_logo",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "Text",
+            "matrix": [
+                1.0435646772384644,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -1.4021215122284048e-7,
+                1.043564796447754,
+                0.0,
+                0.0,
+                -1.043564796447754,
+                -1.4021215122284048e-7,
+                0.0,
+                -0.792023777961731,
+                0.026705343276262283,
+                0.09217532724142075,
+                1.0
+            ],
+            "mesh": 0,
+            "extras": {
+                "name": "Text"
+            }
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "scene": 0
+}
