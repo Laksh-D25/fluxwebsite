@@ -1,0 +1,12 @@
+[
+    {
+        "eventName": "Startathon",
+        "type": "Hackathon",
+        "description": "A high-energy event where creativity, innovation, and business acumen collide. Participants form teams to ideate, design, and develop a startup solution. The event simulates the journey of building a startup, from brainstorming ideas to pitching to investors, all while competing against rival teams for the coveted title of the \"Most Successful Startup.\"\n\nRound 01 – Team Formation\nThis is a solo event to begin with, project managers will be chosen based on a set of interviews prior to the event. Project managers will network with the rest of the participants to form a team.\n\nRound 02 – Ideation Phase\nPrior to the event, the team will ideate on the problem statement and come up with an SRS document.\n\nRound 03 – Design & Planning\nOn the day of the event, the teams will purchase stationary items(with startathon currency, you don't have to spend any real money) to design their products, coming up with flowcharts, ui designs etc.\nAt the end of this round, teams will attempt to get investment from a panel or through other methods for the remaining rounds for things like individual salaries, buying their technologies etc.\n\nRound 04 – Development & Testing\nDuring this phase, the teams will develop a working prototype and test the product. During this phase the teams must also create accounts of the money spent, and also marketing material for the pitch. Be sure to diversify your team, with developers and non-developers.\n\nFinal Round – Pitch & Presentation\nPitch the idea and prototype to a panel of judges, who will look at how well the prototype works, the marketing material etc",
+        "price": "₹100",
+        "image": ""
+    },
+    {
+        "eventName": "Wort Und Macht"
+    }
+]

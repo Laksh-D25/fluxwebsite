@@ -1,0 +1,11 @@
+Model Information:
+* title:	Western Rocking Chair
+* source:	https://sketchfab.com/3d-models/western-rocking-chair-d5e784aa92464572af37264c3b3d2fa6
+* author:	jeltato (https://sketchfab.com/jeltato)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Western Rocking Chair" (https://sketchfab.com/3d-models/western-rocking-chair-d5e784aa92464572af37264c3b3d2fa6) by jeltato (https://sketchfab.com/jeltato) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
