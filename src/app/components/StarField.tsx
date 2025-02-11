@@ -11,11 +11,11 @@ export default function StarField({ count }: { count: number }) {
 }
 
 const Star = () => {
-  const size = Math.random() * 2 + 1;
-  const opacity = Math.random() * 0.7 + 0.3;
-  const animationDelay = `${Math.random() * 3}s`;
-  const glowIntensity = Math.random() * 5 + 1.5;
-  const glowColor = `rgba(255, 255, 255, ${opacity * 0.5})`;
+    const size = Math.random() * 2 + 1;
+    const opacity = Math.random() * 0.7 + 0.3;
+    const animationDelay = `${Math.random() * 3}s`;
+    const glowIntensity = Math.random() * 5 + 1.5;
+    const glowColor = `rgba(rand(), 255, 255, ${opacity * 0.5})`;
 
 return (
         <div

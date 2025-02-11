@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-const myFont = localFont({
+const arianFont = localFont({
   src: '../../public/arian.ttf',
+  variable: '--font-arian' // This makes it available as a CSS variable
+})
+
+const quadFont = localFont({
+  src: '../../public/quad.otf',
+  variable: '--font-quad'
 })
 
 import "./globals.css";
@@ -20,11 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={myFont.className}
-      >
+      <body className={`${arianFont.variable} ${quadFont.variable} ${arianFont.className}`}>
         <Navbar/>
         {children}
+        <Footer />
       </body>
     </html>
   );
