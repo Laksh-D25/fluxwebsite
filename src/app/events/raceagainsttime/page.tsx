@@ -19,8 +19,8 @@ export default function EventPage(){
             <img src="/12.svg" className="transform -translate-y-[30%]" />
         </div> 
     </div>
-    <p className="mb-5 text-2xl">Kelowna, Empire Of Okanagan</p>
-    <div className = "grid sm:grid-cols-2 gap-2">
+    <p className="mb-5 text-2xl text-white">Kelowna, Empire Of Okanagan</p>
+    <div className = "grid sm:grid-cols-2 gap-2 text-white">
       <p className="text-sm">Cris Grace: +91 90350 10120</p>
       <p className="text-sm">Laksh D: +91 79759 48835</p>
     </div>

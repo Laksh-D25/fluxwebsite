@@ -26,7 +26,7 @@ export default function Example() {
     }
 
     return (
-        <Disclosure as="nav" className="bg-black/30 top-0 left-0 w-full flex gap-6 text-white z-50 sticky">
+        <Disclosure as="nav" className="absolute bg-black/30 top-0 left-0 w-full flex gap-6 text-white z-50 top-0 backdrop-blur-md">
             <div className="w-[100%]">
                 <div className="relative flex h-16 items-center justify-between w-[100%]">
                     <div className="absolute inset-y-0 left-0 flex items-center xl:hidden w-[100%] flex justify-between px-2">
@@ -51,7 +51,7 @@ export default function Example() {
                         </Link>
                     </div>
 
-                    <div className="hidden mx-3 xl:flex justify-between w-[100%]">
+                    <div className="hidden mx-3 px-5 xl:flex justify-between w-[100%] items-center">
                         <Link href="/" className="flex items-center flex-row">
                             <h1 className="font-quad text-[35px]" style={{ fontFamily: 'var(--font-quad)' }}>Flux</h1>
                             <h1 className="opacity-0 text-black font-quad text-[35px] hover:cursor-default" style={{ fontFamily: 'var(--font-quad)' }}>Flux</h1>
@@ -91,7 +91,8 @@ export default function Example() {
                 leaveFrom="translate-x-full opacity-100"
                 leaveTo="-translate-x-0 opacity-0"
             >
-                <DisclosurePanel className="xl:hidden lg:w-[25%] w-[100%] backdrop-blur-md rounded-bl-lg absolute lg:left-0 right-0 bg-black/30 h-screen pl-2">
+                <DisclosurePanel className="xl:hidden lg:w-[25%] w-[100%] absolute lg:left-0 right-0 bg-black/70 h-screen pl-2" 
+                    style={{ backgroundColor: "rgba(0,0,0,0.7)", backdropFilter: "blur(15px)" }}>
                     <div className="space-y-1 grid w-[100%]">
                         <div className='mt-12'>
                             {navigation.map((item) => (
@@ -109,7 +110,7 @@ export default function Example() {
                                 </DisclosureButton>
                             ))}
                         </div>
-                        <div className='flex items-center flex-col w-[75%] py-2 bg-black/30'>
+                        <div className='flex items-center flex-col w-[75%] py-2'>
                             <div className="w-full flex justify-start items-center p-2">
                                 <Link href="https://christuniversity.in/departments/yeshwanthpur%20campus/school%20of%20sciences/computer%20science">
                                     <img src="/img/icon.webp" alt="" className='w-auto h-9'/>

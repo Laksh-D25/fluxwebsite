@@ -2,8 +2,8 @@ import HeroSection from "./components/HeroSection";
 
 export default function Home() {
     return (
-        <div>
-            Page
+        <div className="">
+            <HeroSection />
         </div>
     );
 }

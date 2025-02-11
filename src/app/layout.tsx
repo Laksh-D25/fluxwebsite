@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import AutoAudio from "./components/Audio";
 
 const arianFont = localFont({
   src: '../../public/arian.ttf',
@@ -29,8 +30,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${arianFont.variable} ${quadFont.variable} ${arianFont.className}`}>
         <Navbar/>
-        {children}
+        <main className="flex-1">
+          {children}
+        </main>
         <Footer />
+        <AutoAudio />
       </body>
     </html>
   );

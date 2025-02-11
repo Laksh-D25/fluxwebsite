@@ -159,7 +159,7 @@ export default function EventsPage() {
     }, [globeLoaded]);
 
     return (
-        <div className="fixed inset-0 w-full h-full bg-black overflow-hidden">
+        <div className="relative w-full h-screen bg-black overflow-hidden">
             <div 
                 style={{ 
                     opacity: opacity,
