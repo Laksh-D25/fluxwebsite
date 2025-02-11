@@ -5,24 +5,25 @@ const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
 const VP = dynamic(() => import("../components/VanishingPoint"), { ssr: false });
 import dynamic from "next/dynamic";
 import Loading3DModel from "../components/Loading3DModel";
-import { Description, Dialog, DialogPanel, DialogTitle, Button } from '@headlessui/react'
+import { useRouter } from 'next/navigation'
 
 const StarField = dynamic(() => import("../components/StarField"), { ssr: false });
 
 export default function EventsPage() {
+    const router = useRouter()
     const places = [
-        { name: "Kelowna, Empire Of Okanagan", lat: 49.8821, lng: -119.4778, img: "12.png", stackIndex: 0, desc: "Race against time to uncover the truth behind this mysterious Earth and the secrets it hides.", type: "Quest" },
-        { name: "Alcatraz Island, California Republic ", lat: 37.8267, lng: -122.423, img: "7.png", stackIndex: 0, desc: "A forgotten prison turned high-tech fortress. Escape, uncover the truth, or be lost to the system forever.", type: "Escape Room" },
-        { name: "Houston, Texas Republic", lat: 29.7604, lng: -95.3698, img: "4.png", stackIndex: 0, desc: "In the ruthless markets of the Texas Republic, outbid, outbuild, and outsmart your rivals to create the ultimate machine.", type: "PC Building Auction"},
-        { name: "New York City, Confederate States Of New England", lat: 40.7128, lng: -74.0060, img: "5.png", stackIndex: 0, desc: "Bahoo needs a strategist. Solve the challenges, uncover the truth, and seize control of destiny.", type: "IT Manager" },
-        { name: "New York City, Confederate States Of New England", lat: 37, lng: -74.0060, img: "8.png", stackIndex: 1, desc: "With the Soviet Union's AI war machine reshaping the world, will you resist its expansion or embrace its rule? The fate of nations hangs in the balance.", type: "MUN - UNSC" },
-        { name: "Berlin, German Democratic Republic", lat: 52.5200, lng: 13.4050, img: "2.png", stackIndex: 0, desc: "Infiltrate the GDR's Ministry of Propaganda through a high-stakes web-building contest. Master HTML, CSS, and JavaScript to outcode, outthink, and outmaneuver your rivals.", type: "Web Development" },
-        { name: "World", lat: 9.033872, lng: 38.750080, img: "13.png", stackIndex: 0, desc: "Capture the essence of Flux through photography, reels, and videography—but with a twist! Integrate a surprise object or topic into your work and showcase your creativity.", type: "Photography" },
-        { name: "Vorkuta, Union Of Soviet Socialist Republics", lat: 67.5, lng: 64.0, img: "6.png", stackIndex: 0, desc: "Trapped in a Soviet gulag, you and your partner face Marshal Sokolov's brutal test. Answer correctly to survive—outsmart him to escape.", type: "IT Quiz" },
-        { name: "Bangalore, South Asian Union", lat: 12.9716, lng: 77.5946, img: "1.png", stackIndex: 0, desc: "A high-energy clash of creativity, innovation, and strategy. Build, develop, and pitch your startup while competing against rivals to claim the title of \"Most Successful Startup.\"", type: "Hackathon" },
-        { name: "Bangalore, South Asian Union", lat: 9, lng: 77.5946, img: "3.png", stackIndex: 1, desc: "A high-stakes cyber challenge where deception and logic collide. Trace digital remnants, decrypt buried secrets, and outlast system defenses. With every keystroke, the truth unravels—but are you ready for what you'll uncover?", type: "Coding & Debugging" },
-        { name: "Shenzen, Republic Of China", lat: 22.5431, lng: 114.0579, img: "11.png", stackIndex: 0, desc: "Drop in, fight hard, and outlast the competition. Only the best survive. Will you claim victory?", type: "BGMI" },
-        { name: "The Concious", lat: null, lng: null, img: "9.png", stackIndex: 0, desc: "Trapped within a fractured subconscious, you must navigate shifting memories, buried truths, and fragmented realities to free the mind of a captive. As the walls of perception twist and distort, one question lingers—what was stolen, and why? Escape is only the beginning.", type: "Horror Experience"}
+        { name: "Kelowna, Empire Of Okanagan", lat: 49.8821, lng: -119.4778, img: "12.png", stackIndex: 0, desc: "Race against time to uncover the truth behind this mysterious Earth and the secrets it hides.", type: "Quest", url: "/events/raceagainsttime" },
+        { name: "Alcatraz Island, California Republic ", lat: 37.8267, lng: -122.423, img: "7.png", stackIndex: 0, desc: "A forgotten prison turned high-tech fortress. Escape, uncover the truth, or be lost to the system forever.", type: "Escape Room",  url: "/events/facilityzero" },
+        { name: "Houston, Texas Republic", lat: 29.7604, lng: -95.3698, img: "4.png", stackIndex: 0, desc: "In the ruthless markets of the Texas Republic, outbid, outbuild, and outsmart your rivals to create the ultimate machine.", type: "PC Building Auction",  url: "/events/buildnbid"},
+        { name: "New York City, Confederate States Of New England", lat: 40.7128, lng: -74.0060, img: "5.png", stackIndex: 0, desc: "Bahoo needs a strategist. Solve the challenges, uncover the truth, and seize control of destiny.", type: "IT Manager",  url: "/events/technocratsofturmoil" },
+        { name: "New York City, Confederate States Of New England", lat: 37, lng: -74.0060, img: "8.png", stackIndex: 1, desc: "With the Soviet Union's AI war machine reshaping the world, will you resist its expansion or embrace its rule? The fate of nations hangs in the balance.", type: "MUN - UNSC",  url: "/events/digitaldystopia" },
+        { name: "Berlin, German Democratic Republic", lat: 52.5200, lng: 13.4050, img: "2.png", stackIndex: 0, desc: "Infiltrate the GDR's Ministry of Propaganda through a high-stakes web-building contest. Master HTML, CSS, and JavaScript to outcode, outthink, and outmaneuver your rivals.", type: "Web Development",  url: "/events/wortundmacht" },
+        { name: "World", lat: 9.033872, lng: 38.750080, img: "13.png", stackIndex: 0, desc: "Capture the essence of Flux through photography, reels, and videography—but with a twist! Integrate a surprise object or topic into your work and showcase your creativity.", type: "Photography",  url: "/events/pravda" },
+        { name: "Vorkuta, Union Of Soviet Socialist Republics", lat: 67.5, lng: 64.0, img: "6.png", stackIndex: 0, desc: "Trapped in a Soviet gulag, you and your partner face Marshal Sokolov's brutal test. Answer correctly to survive—outsmart him to escape.", type: "IT Quiz",  url: "/events/dopros" },
+        { name: "Bangalore, South Asian Union", lat: 12.9716, lng: 77.5946, img: "1.png", stackIndex: 0, desc: "A high-energy clash of creativity, innovation, and strategy. Build, develop, and pitch your startup while competing against rivals to claim the title of \"Most Successful Startup.\"", type: "Hackathon",  url: "/events/startathon" },
+        { name: "Bangalore, South Asian Union", lat: 9, lng: 77.5946, img: "3.png", stackIndex: 1, desc: "A high-stakes cyber challenge where deception and logic collide. Trace digital remnants, decrypt buried secrets, and outlast system defenses. With every keystroke, the truth unravels—but are you ready for what you'll uncover?", type: "Coding & Debugging",  url: "/events/algol" },
+        { name: "Shenzen, Republic Of China", lat: 22.5431, lng: 114.0579, img: "11.png", stackIndex: 0, desc: "Drop in, fight hard, and outlast the competition. Only the best survive. Will you claim victory?", type: "BGMI", url: "/events/bgmi" },
+        { name: "The Concious", lat: null, lng: null, img: "9.png", stackIndex: 0, desc: "Trapped within a fractured subconscious, you must navigate shifting memories, buried truths, and fragmented realities to free the mind of a captive. As the walls of perception twist and distort, one question lingers—what was stolen, and why? Escape is only the beginning.", type: "Horror Experience",  url: "/events/vanishingpoint"}
     ];
 
     let [isOpen, setIsOpen] = useState(false)
@@ -144,6 +145,10 @@ export default function EventsPage() {
         }
     };
 
+    const learnMore = () => {
+        router.push(places[currentIndex].url)
+    }
+
     useEffect(() => {
         if (globeLoaded && globeRef.current) {
             const { lat, lng } = places[0];
@@ -152,14 +157,6 @@ export default function EventsPage() {
             globeRef.current.controls().enablePan = false;
         }
     }, [globeLoaded]);
-
-    function open() {
-      setIsOpen(true)
-    }
-  
-    function close() {
-      setIsOpen(false)
-    }
 
     return (
         <div className="fixed inset-0 w-full h-full bg-black overflow-hidden">
@@ -238,12 +235,6 @@ export default function EventsPage() {
                             >
                                 Previous Event
                             </button>
-                            <Button
-                                onClick={open}
-                                className="rounded-md bg-black/20 py-2 px-4 text-sm font-medium text-white focus:outline-none data-[hover]:bg-black/30 data-[focus]:outline-1 data-[focus]:outline-white"
-                            >
-                                Open dialog
-                            </Button>
                             <button 
                                 onClick={nextEvent} 
                                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
@@ -267,7 +258,7 @@ export default function EventsPage() {
                                         </svg>
                                     </button>
                                     <button 
-                                        onClick={prevEvent} 
+                                        onClick={learnMore} 
                                         className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition"
                                     >
                                         Learn More
@@ -294,7 +285,7 @@ export default function EventsPage() {
                                 <p className="text-center text-sm">{places[currentIndex].desc}</p>
                                 <div className="flex justify-center">
                                     <button 
-                                        onClick={nextEvent} 
+                                        onClick={learnMore} 
                                         className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
                                     >
                                         Learn More
