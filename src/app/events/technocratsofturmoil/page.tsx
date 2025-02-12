@@ -21,7 +21,7 @@ export default function EventPage(){
     </div>
     <p className="mb-5 text-2xl">New York City, Confederate States Of New England</p>
     <div className = "grid sm:grid-cols-2 gap-2">
-      <p className="text-sm">Prakash R Suthar: +91 89718 33784</p>
+      <p className="text-sm">Arnav Wadwa: +91 79825 78004</p>
       <p className="text-sm">Nitsa Mehndiratta: +91 80537 71120</p>
     </div>
     <div className="mt-4 text-white">

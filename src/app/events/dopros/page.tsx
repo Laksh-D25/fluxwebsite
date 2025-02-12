@@ -22,7 +22,7 @@ export default function EventPage(){
     <p className="mb-5 text-2xl">Vorkuta, Union Of Soviet Socialist Republics</p>
     <div className = "grid sm:grid-cols-2 gap-2">
       <p className="text-sm">Chiranjeevi P: +91 78923 04079</p>
-      <p className="text-sm">MD. Sohail: +91 91 230 134 03</p>
+      <p className="text-sm">MD. Sohail: +91 91230 13403</p>
     </div>
     <div className="mt-4 text-white">
     <div className="grid sm:grid-cols-6 grid-cols-3 gap-2">
