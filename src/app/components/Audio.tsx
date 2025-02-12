@@ -7,7 +7,7 @@ const AUDIO_STATE_KEY = 'audioPlayerState';
 const PersistentAudio = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isMuted, setIsMuted] = useState(() => {
-        // Initialize from localStorage if available
+
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem(AUDIO_STATE_KEY);
             return saved ? JSON.parse(saved).isMuted : true;
@@ -16,7 +16,7 @@ const PersistentAudio = () => {
     });
 
     useEffect(() => {
-        // Save state to localStorage whenever it changes
+
         localStorage.setItem(AUDIO_STATE_KEY, JSON.stringify({ isMuted }));
     }, [isMuted]);
 
@@ -41,7 +41,6 @@ const PersistentAudio = () => {
 
         initializeAudio();
 
-        // Handle page visibility change
         const handleVisibilityChange = () => {
             if (!audio.muted && !document.hidden) {
                 audio.play().catch(console.log);
@@ -78,7 +77,7 @@ const PersistentAudio = () => {
         <>
             <button
                 onClick={toggleMute}
-                className="fixed right-8 top-24 z-50 bg-black/80 hover:bg-black text-white p-2 rounded-full transition-all"
+                className="fixed right-8 md:top-24 top-20 z-20 bg-black/80 hover:bg-black text-white p-2 rounded-full transition-all"
                 aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
             >
                 {isMuted ? (

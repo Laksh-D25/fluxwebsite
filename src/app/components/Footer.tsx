@@ -40,7 +40,7 @@ const navigation = {
 
 export default function Example() {
 return (
-    <footer className="bg-black text-white border-t border-white/10 backdrop-blur-md w-full z-10">
+    <footer className="bg-black text-white border-t border-white/30 backdrop-blur-md w-full z-10">
         <div className="mx-10 w-90 py-5">
             <div className="flex lg:flex-row flex-col w-full space-y-6">
                 <div className="space-y-8 lg:w-[50%]">

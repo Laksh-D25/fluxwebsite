@@ -39,3 +39,38 @@ body {
 .fade-exit-active {
   opacity: 0;
 }
+
+@keyframes quantum-wobble {
+  0% {
+    opacity: 0;
+    transform: translateZ(-10px);
+  }
+  16% {
+    transform: translateZ(-160px);
+  }
+  28% {
+    opacity: 1;
+    transform: translateZ(-70px);
+  }
+  44% {
+    transform: translateZ(-130px);
+  }
+  59% {
+    transform: translateZ(-85px);
+  }
+  73% {
+    transform: translateZ(-110px);
+  }
+  88% {
+    opacity: 1;
+    transform: translateZ(-90px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(-100px);
+  }
+}
+
+.animate-quantum-wobble {
+  animation: quantum-wobble 2.2s ease forwards;
+}

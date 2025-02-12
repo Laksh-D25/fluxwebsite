@@ -18,7 +18,7 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Navbar() {
     const [navOpen, setNavOpen] = useState(false);
 
     function handleNavOpen() {
@@ -26,7 +26,7 @@ export default function Example() {
     }
 
     return (
-        <Disclosure as="nav" className="absolute bg-black/30 top-0 left-0 w-full flex gap-6 text-white z-50 top-0 backdrop-blur-md">
+        <Disclosure as="nav" className="border-b border-white/30 absolute bg-black/30 top-0 left-0 w-full flex gap-6 text-white z-50 top-0 backdrop-blur-md">
             <div className="w-[100%]">
                 <div className="relative flex h-16 items-center justify-between w-[100%]">
                     <div className="absolute inset-y-0 left-0 flex items-center xl:hidden w-[100%] flex justify-between px-2">
@@ -91,8 +91,8 @@ export default function Example() {
                 leaveFrom="translate-x-full opacity-100"
                 leaveTo="-translate-x-0 opacity-0"
             >
-                <DisclosurePanel className="xl:hidden lg:w-[25%] w-[100%] absolute lg:left-0 right-0 bg-black/70 h-screen pl-2" 
-                    style={{ backgroundColor: "rgba(0,0,0,0.7)", backdropFilter: "blur(15px)" }}>
+                <DisclosurePanel className="xl:hidden lg:w-[25%] w-[100%] absolute lg:left-0 right-0 bg-black h-screen pl-2 z-100" 
+                    style={{ backdropFilter: "blur(15px)" }}>
                     <div className="space-y-1 grid w-[100%]">
                         <div className='mt-12'>
                             {navigation.map((item) => (
@@ -102,7 +102,7 @@ export default function Example() {
                                     href={item.href}
                                     aria-current={item.current ? 'page' : undefined}
                                     className={classNames(
-                                        item.current ? 'text-white' : 'text-white hover:bg-gray-700 hover:bg-opacity-75',
+                                        item.current ? 'text-white' : 'text-white hover:border-[1px] hover:border-white mx-2',
                                         'block rounded-md px-3 py-2 text-base font-medium font-bold',
                                     )}
                                 >
