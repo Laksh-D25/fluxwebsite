@@ -11,8 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-toast": "^1.2.6",
     "@react-three/drei": "^9.121.4",
     "@react-three/fiber": "^9.0.0-rc.1",
+    "class-variance-authority": "^0.7.1",
     "gsap": "^3.12.7",
     "next": "15.1.6",
     "primeicons": "^7.0.0",

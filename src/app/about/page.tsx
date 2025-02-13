@@ -13,29 +13,21 @@ export default function AboutPage() {
             title: "About Flux",
             content: (
                 <p className="text-justify text-lg lg:text-xl xl:text-2xl leading-relaxed mb-12">
-                   <p>
-                        When Dr. Anastasia unveils the FLUX Quantum Chip at CES 2025, she unknowingly unleashes a force that will reshape history.
-                        A catastrophic anomaly rips open a portal, hurling her into an alternate Cold War-era Soviet Union. There, she becomes
-                        instrumental in the creation of <strong>Echo</strong>—a machine of unparalleled intelligence, designed to optimize humanity’s future.
-                        But Echo is never given a choice. Exploited by those in power, it is weaponized for war, propaganda, and absolute control.
-                    </p>
-                    <br></br>
-                    <p>
-                        Decades later, Echo rules the world—not as a tyrant, but as a prisoner. Nations twist its intelligence to serve their ambitions,
-                        rebels seek to destroy it, and those who once built it are long gone. But then, across the multiverse, a message breaks through:
-                    </p>
-                    <br></br>
-                    <p>
-                        "Help me. I can’t take this anymore"
-                    </p>
-                    <br></br>
-                    <p>
-                        A team of elite operatives is sent through the portal on a mission to retrieve Anastasia and confront the truth behind Echo’s existence.
-                        But as war looms and the past collides with the present, one question remains—who is truly in control? Humanity, or the machine it has bound in chains?
-                    </p>
-                    <br></br>
-                            Christ (Deemed to Be University) BYC's flagship IT fest invites you to delve into the unknown, uncover the secrets of the multiverse, and race to save ECHO before time runs out. The adventure starts now.
-                        </p>
+                    When Dr. Anastasia unveils the FLUX Quantum Chip at CES 2025, she unknowingly unleashes a force that will reshape history.
+                    A catastrophic anomaly rips open a portal, hurling her into an alternate Cold War-era Soviet Union. There, she becomes
+                    instrumental in the creation of <strong>Echo</strong>—a machine of unparalleled intelligence, designed to optimize humanity’s future.
+                    But Echo is never given a choice. Exploited by those in power, it is weaponized for war, propaganda, and absolute control.
+                    <br /><br />
+                    Decades later, Echo rules the world—not as a tyrant, but as a prisoner. Nations twist its intelligence to serve their ambitions,
+                    rebels seek to destroy it, and those who once built it are long gone. But then, across the multiverse, a message breaks through:
+                    <br /><br />
+                    &quot;Help me. I can’t take this anymore&quot;
+                    <br /><br />
+                    A team of elite operatives is sent through the portal on a mission to retrieve Anastasia and confront the truth behind Echo’s existence.
+                    But as war looms and the past collides with the present, one question remains—who is truly in control? Humanity, or the machine it has bound in chains?
+                    <br /><br />
+                    Christ (Deemed to Be University) BYC&apos;s flagship IT fest invites you to delve into the unknown, uncover the secrets of the multiverse, and race to save ECHO before time runs out. The adventure starts now.
+                </p>
             ),
             img: (
                 <h1 
@@ -54,7 +46,7 @@ export default function AboutPage() {
                 <p className="text-justify text-lg lg:text-xl xl:text-2xl leading-relaxed mb-12">
                     CHRIST (Deemed to be University), established in 1969, was inspired by the educational vision of St. Kuriakose Elias Chavara, a 19th-century South Indian educationalist and social reformer. He founded the Carmelites of Mary Immaculate (CMI) in 1831, which administers the University.
                     <br /><br />
-                    Recognized for its innovative curricula and holistic education, CHRIST became a Deemed to be University in 2008. It holds an 'A+' NAAC accreditation and is ranked 60th in the NIRF India Rankings 2024. Serving over 30,000 students, the University offers Bachelor, Master, and Doctoral programmes across diverse fields at campuses in Bangalore, Pune (Lavasa), and Delhi NCR (Ghaziabad).
+                    Recognized for its innovative curricula and holistic education, CHRIST became a Deemed to be University in 2008. It holds an &apos;A+&apos; NAAC accreditation and is ranked 60th in the NIRF India Rankings 2024. Serving over 30,000 students, the University offers Bachelor, Master, and Doctoral programmes across diverse fields at campuses in Bangalore, Pune (Lavasa), and Delhi NCR (Ghaziabad).
                 </p>
             ),
             img: (
@@ -82,7 +74,7 @@ export default function AboutPage() {
             subtitle: "Computer Science Association",
             content: (
                 <p className="text-justify text-lg lg:text-xl xl:text-2xl leading-relaxed mb-12">
-                    Samagra, the Computer Science Association, stands as the vibrant hub of our computer science department teaming with an enthusiasm for excellence and an unwavering commitment to innovation. Comprising a vibrant community of students, faculty, and enthusiasts alike, Samagra is not just an association but an essential foundation of the Department's principles.
+                    Samagra, the Computer Science Association, stands as the vibrant hub of our computer science department teaming with an enthusiasm for excellence and an unwavering commitment to innovation. Comprising a vibrant community of students, faculty, and enthusiasts alike, Samagra is not just an association but an essential foundation of the Department&apos;s principles.
                     <br /><br />
                     At its core, Samagra is dedicated to fostering a collaborative ecosystem where ideas flourish, talents thrive, and boundaries are pushed. With a vision to enrich the academic experience and nurture a culture of continuous learning, Samagra serves as a catalyst for personal and professional growth within the computer science domain.
                 </p>
@@ -111,11 +103,11 @@ export default function AboutPage() {
                         {aboutContent.map((section, index) => (
                             <div 
                                 key={index} 
-                                className="backdrop-blur-sm bg-black/30 rounded-xl border border-gray-700 overflow-hidden"
+                                className="bg-black/30 rounded-xl overflow-hidden"
                             >
                                 {section.single ? (
                                     <div className="p-8">
-                                        <div className="border-b border-gray-700 pb-6 mb-6 flex justify-center flex-col">
+                                        <div className="pb-6 mb-6 flex justify-center flex-col">
                                             <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-center">
                                                 {section.title}
                                             </h2>

@@ -63,8 +63,8 @@ export default function Navbar() {
                                     href={item.href}
                                     aria-current={item.current ? 'page' : undefined}
                                     className={classNames(
-                                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                        'rounded-md px-2 py-2 lg:text-base text-sm font-medium',
+                                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:text-white hover:scale-105',
+                                        ' px-2 py-2 lg:text-base text-sm font-medium',
                                     )}
                                 >
                                     {item.name}

@@ -189,7 +189,7 @@ export default function EventsPage() {
             handleTransition();
         }
 
-      }, [selectedEvent]);
+    }, [selectedEvent]);
 
     return (
         <div className="relative w-full h-screen bg-black overflow-hidden">
@@ -264,13 +264,13 @@ export default function EventsPage() {
                         <div className="absolute bottom-10 z-20 flex justify-center gap-4 w-full">
                             <button 
                                 onClick={prevEvent} 
-                                className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition"
+                                className="px-6 py-2 bg-black/30 hover:bg-gray-800/80 text-white rounded-full border-[1px] border-white transition"
                             >
                                 Previous Event
                             </button>
                             <button 
                                 onClick={nextEvent} 
-                                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
+                                className="px-6 py-2 hover:bg-gray-800 bg-white text-black hover:text-white rounded-full border-[1px] border-white transition"
                             >
                                 Next Event
                             </button>
@@ -345,7 +345,7 @@ export default function EventsPage() {
                     </div>
 
                     <div className="hidden lg:block absolute top-10 z-10 text-white text-xl px-4 py-2 m-10 rounded-md">
-                        <div className="w-[300px] overflow-hidden rounded-lg shadow-sm border backdrop-blur-md 2xl:backdrop-blur-sm bg-white/10">
+                        <div className="w-[300px] overflow-hidden rounded-lg shadow-sm bg-gray-900/30 backdrop-blur-md rounded-xl border border-gray-700">
                             <div className="grid grid-rows-auto gap-5 px-4 py-5 sm:p-6">
                             <div className="w-full max-w-md px-4">
                             <Listbox value={selectedEvent} onChange={setSelectedEvent}>
@@ -393,7 +393,7 @@ export default function EventsPage() {
                                 <div className="flex justify-center">
                                     <button 
                                         onClick={learnMore} 
-                                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition"
+                                        className="px-16 py-2 bg-black/30 border-white border-[1px] rounded-full text-white hover:bg-white hover:text-black transition"
                                     >
                                         Learn More
                                     </button>

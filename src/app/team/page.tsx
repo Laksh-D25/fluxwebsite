@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { Suspense, useMemo } from "react";
 const StarField = dynamic(() => import("../components/StarField"), { ssr: false });
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function TeamPage(){
     const faculty = [
@@ -18,6 +19,40 @@ export default function TeamPage(){
             img: 'https://media.licdn.com/dms/image/v2/C4E03AQF46Ch69tSrFQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1634578009919?e=1744848000&v=beta&t=nirBcvlD-clm4YtRGX3D55uZcudoxAv79vaiHYIVl5s'
         }
     ]
+
+    const eventFaculty = [
+        { name: "Dr. Balakrishnan C", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Deepa B G", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Deepa S", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Gayathry S Warrier", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Gobinath R", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Hemanth K S", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Jayadurga R", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Jayapriya J", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Juliet Rozario", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Kalpana P", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Kannan M", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Kavitha S", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Kokilavani T", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Kousalya R", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Mahalakshmi J", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Manimekala B", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Priya Stella Mary I", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Raju Ramakrishna Gondkar", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Ramkumar S", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Rashmi S", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Sindhu V", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Siva Balan R V", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Stephen R", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Suganthi J", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Teena Jose", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Thontadari C", role: 'Organizing Faculty', img: null },
+        { name: "Dr. Umamaheswari D", role: 'Organizing Faculty', img: null },
+        { name: "Ajith Paul", role: 'Organizing Faculty', img: null },
+        { name: "Rashmi R", role: 'Organizing Faculty', img: null },
+        { name: "Geetha A M", role: 'Organizing Faculty', img: null },
+        { name: "Ramakrishna C N", role: 'Organizing Faculty', img: null }
+    ];
     
     const oc = [
         {
@@ -96,7 +131,7 @@ export default function TeamPage(){
                         {categories.map(({ name }) => (
                         <Tab
                             key={name}
-                            className="rounded-full py-1 px-3 text-2xl font-semibold text-white focus:outline-none data-[selected]:bg-white/10 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
+                            className="rounded-full py-1 px-5 text-2xl font-semibold text-white focus:outline-none data-[selected]:bg-gray-400/30 data-[hover]:bg-white/5 data-[selected]:data-[hover]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
                         >
                             {name}
                         </Tab>
@@ -117,17 +152,40 @@ export default function TeamPage(){
                                 </ul>
                                 <h1 className="text-3xl my-10">Faculty Coordinators</h1>
                                 <ul
-                                role="list"
-                                className="mx-auto sm:flex sm:justify-center grid max-w-2xl gap-6 lg:mx-0 lg:max-w-none lg:gap-8"
+                                    role="list"
+                                    className="mx-auto sm:flex sm:justify-center grid max-w-2xl gap-6 lg:mx-0 lg:max-w-none lg:gap-8"
+                                    >
+                                    {faculty.map((person) => (
+                                        <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10">
+                                        <img alt="" src={person.img} className="mx-auto size-48 rounded-full md:size-56" />
+                                        <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
+                                        <p className="text-sm/6 text-gray-400">{person.role}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <h1 className="text-3xl my-10 text-center">Organizing Committee</h1> {/* Centered heading */}
+                                <ul
+                                    role="list"
+                                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto max-w-7xl px-4" // Responsive grid
                                 >
-                                {faculty.map((person) => (
-                                    <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10">
-                                    <img alt="" src={person.img} className="mx-auto size-48 rounded-full md:size-56" />
-                                    <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
-                                    <p className="text-sm/6 text-gray-400">{person.role}</p>
-                                    </li>
-                                ))}
-                            </ul>
+                                    {eventFaculty.map((person) => (
+                                        <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10 flex flex-col items-center"> {/* Flex column for centering */}
+                                            {person.img !== null ? (
+                                                <img 
+                                                    alt={person.name} alt attribute for accessibility
+                                                    src={person.img} 
+                                                    className="mx-auto w-32 h-32 rounded-full object-cover md:w-40 md:h-40" // Responsive image sizing and object-cover
+                                                />
+                                            ) : (
+                                                <UserCircleIcon className="mx-auto w-32 h-32 rounded-full object-cover md:w-40 md:h-40" />
+                                            )}
+                                            <div className="mt-6 text-center"> {/* Center text within the list item */}
+                                                <h3 className="text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
+                                                <p className="text-sm/6 text-gray-400">{person.role}</p>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
                         </TabPanel>
                         <TabPanel key="Students" className="rounded-xl p-3">
                                     <h1 className="text-3xl my-10">The Organizing Committee</h1>

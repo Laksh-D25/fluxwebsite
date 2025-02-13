@@ -173,16 +173,16 @@ export default function ScheduleTable() {
           <div className="flex gap-4 mb-8 justify-center">
             <button
               onClick={() => setActiveDay(1)}
-              className={`px-6 py-2 rounded-lg ${
-                activeDay === 1 ? 'bg-blue-600' : 'bg-gray-800'
+              className={`rounded-full py-1 px-6 text-2xl font-semibold text-white hover:bg-gray-400/30 transition-colors ${
+                activeDay === 1 ? 'bg-gray-400/30' : 'bg-black/30'
               } transition-colors`}
             >
               Day 1
             </button>
             <button
               onClick={() => setActiveDay(2)}
-              className={`px-6 py-2 rounded-lg ${
-                activeDay === 2 ? 'bg-blue-600' : 'bg-gray-800'
+              className={`rounded-full py-1 px-6 text-2xl font-semibold text-white hover:bg-gray-400/30 transition-colors ${
+                activeDay === 2 ? 'bg-gray-400/30' : 'bg-black/30'
               } transition-colors`}
             >
               Day 2
@@ -190,26 +190,26 @@ export default function ScheduleTable() {
           </div>
 
           <div className="overflow-x-auto rounded-lg border border-gray-700">
-            <table className="w-full border-collapse">
-              <thead className="bg-gray-800/80 backdrop-blur-sm">
+            <table className="w-full border-collapse backdrop-blur-md bg-black/30 ">
+              <thead className="border-b border-gray-700 bg-gray-900/30">
                 <tr>
-                  <th className="p-4 text-left">Time</th>
-                  <th className="p-4 text-left">Event</th>
-                  <th className="p-4 text-left">Venue</th>
-                  <th className="p-4 text-left">Type</th>
-                  <th className="p-4 text-left">Passes</th>
+                  <th className="p-4 text-left border-r border-gray-700 text-xl">Time</th>
+                  <th className="p-4 text-left border-r border-gray-700 text-xl">Event</th>
+                  <th className="p-4 text-left border-r border-gray-700 text-xl">Venue</th>
+                  <th className="p-4 text-left border-r border-gray-700 text-xl">Type</th>
+                  <th className="p-4 text-left text-xl">Passes</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-700">
                 {getSortedEvents().map((event, index) => (
                   <tr 
                     key={index} 
-                    className="hover:bg-gray-800/50 backdrop-blur-sm transition-colors"
+                    className="hover:bg-gray-800/50  transition-colors"
                   >
-                    <td className="p-4 text-blue-400">
+                    <td className="p-4 text-blue-400 border-r border-gray-700">
                       {(event.time.length === 2 && activeDay === 2) ? event.time[1] : event.time[0]}
                     </td>
-                    <td className="p-4">
+                    <td className="p-4 border-r border-gray-700">
                       <div className="font-bold text-white">{event.title}</div>
                       <div className="text-sm text-gray-400 mt-1">{event.description}</div>
                       <div className="text-xs text-gray-500 mt-2">
@@ -218,8 +218,8 @@ export default function ScheduleTable() {
                         ))}
                       </div>
                     </td>
-                    <td className="p-4 text-gray-300">{event.venue}</td>
-                    <td className="p-4 text-gray-300">{event.type}</td>
+                    <td className="p-4 text-gray-300 border-r border-gray-700">{event.venue}</td>
+                    <td className="p-4 text-gray-300 border-r border-gray-700">{event.type}</td>
                     <td className="p-4 text-gray-300">{event.passes}</td>
                   </tr>
                 ))}
