@@ -144,7 +144,7 @@ export default function TeamPage(){
                                 role="list"
                                 className="mx-auto flex justify-center max-w-2xl gap-6  lg:mx-0 lg:max-w-none lg:gap-8"
                                 >
-                                    <li key="hod" className="rounded-2xl bg-gray-800 px-8 py-10">
+                                    <li key="hod" className="rounded-2xl bg-gray-800/30 backdrop-blur-md border border-gray-700 px-8 py-10">
                                         <img alt="" src="https://media.licdn.com/dms/image/v2/D5603AQF1XlycOZLLqQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722751327868?e=1744848000&v=beta&t=hmTGGtav4WeOn4Z73U4JLOXlc51hRXKwgV6ljzihGaA" className="mx-auto size-48 rounded-full md:size-56" />
                                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">Dr. Vinay M</h3>
                                         <p className="text-sm/6 text-gray-400">Head Of Department</p>
@@ -156,7 +156,7 @@ export default function TeamPage(){
                                     className="mx-auto sm:flex sm:justify-center grid max-w-2xl gap-6 lg:mx-0 lg:max-w-none lg:gap-8"
                                     >
                                     {faculty.map((person) => (
-                                        <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10">
+                                        <li key={person.name} className="rounded-2xl bg-gray-800/30 backdrop-blur-md border border-gray-700 px-8 py-10">
                                         <img alt="" src={person.img} className="mx-auto size-48 rounded-full md:size-56" />
                                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
                                         <p className="text-sm/6 text-gray-400">{person.role}</p>
@@ -169,7 +169,7 @@ export default function TeamPage(){
                                     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto max-w-7xl px-4" // Responsive grid
                                 >
                                     {eventFaculty.map((person) => (
-                                        <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10 flex flex-col items-center"> {/* Flex column for centering */}
+                                        <li key={person.name} className="rounded-2xl bg-gray-800/30 backdrop-blur-md border border-gray-700 px-8 py-10 flex flex-col items-center"> {/* Flex column for centering */}
                                             {person.img !== null ? (
                                                 <img 
                                                     alt={person.name} alt attribute for accessibility
@@ -194,7 +194,7 @@ export default function TeamPage(){
                             className="mx-auto grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-4 lg:gap-8"
                             >
                             {oc.map((person) => (
-                                <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10">
+                                <li key={person.name} className="bg-gray-800/30 backdrop-blur-md rounded-2xl border border-gray-700 px-8 py-10">
                                 <img alt="" src={person.img} className="mx-auto size-48 rounded-full md:size-56" />
                                 <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
                                 <p className="text-sm/6 text-gray-400">{person.class}</p>
@@ -222,7 +222,7 @@ export default function TeamPage(){
                             className="mx-auto grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-4 lg:gap-8"
                             >
                             {event_management.map((person) => (
-                                <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10">
+                                <li key={person.name} className="rounded-2xl bg-gray-800/30 backdrop-blur-md border border-gray-700 px-8 py-10">
                                 <img alt="" src={person.img} className="mx-auto size-48 rounded-full md:size-56" />
                                 <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
                                 <p className="text-sm/6 text-gray-400">{person.class}</p>
@@ -250,7 +250,7 @@ export default function TeamPage(){
                             className="mx-auto grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-4 lg:gap-8"
                             >
                             {event_head.map((person) => (
-                                <li key={person.name} className="rounded-2xl bg-gray-800 px-8 py-10">
+                                <li key={person.name} className="rounded-2xl bg-gray-800/30 backdrop-blur-md border border-gray-700 px-8 py-10">
                                 <img alt="" src={person.img} className="mx-auto size-48 rounded-full md:size-56" />
                                 <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-white">{person.name}</h3>
                                 <p className="text-sm/6 text-gray-400">{person.class}</p>

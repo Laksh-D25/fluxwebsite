@@ -4,7 +4,7 @@ const navigation = {
     social: [
         {
             name: 'Flux BYC Instagram',
-            href: '#',
+            href: 'https://www.instagram.com/fluxbyc/',
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
@@ -17,7 +17,7 @@ const navigation = {
         },
         {
             name: 'Samagra Instagram',
-            href: '#',
+            href: 'https://www.instagram.com/samagra_cs/',
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
@@ -29,8 +29,8 @@ const navigation = {
             ),
         },
         {
-            name: 'Gmail',
-            href: '#',
+            name: 'flux.csbyc@christuniversity.in',
+            href: 'mailto:flux.csbyc@christuniversity.in',
             icon: (props) => (
                 <EnvelopeIcon className="size-6" {...props} />
             ),
