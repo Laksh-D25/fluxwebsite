@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuantumButton = ({ onClick }) => {
+const QuantumButton = ({ onClick }: { onClick: React.MouseEventHandler<HTMLButtonElement> }) => {
   return (
     <div className="flex w-full justify-center items-center">
       <button 

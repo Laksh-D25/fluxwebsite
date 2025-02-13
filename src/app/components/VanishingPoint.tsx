@@ -1,7 +1,8 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useMemo } from "react";
 import { OrbitControls, PerspectiveCamera, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
+import { Mesh, Object3D, Material, Points } from "three";
 
 export default function RockingChairScene() {
   return (
@@ -53,20 +54,21 @@ export default function RockingChairScene() {
 }
 
 function Chair() {
-  const chairRef = useRef();
+  const chairRef = useRef<Object3D>(null);
   const { scene } = useGLTF("/threedmodel/western_rocking_chair/scene.gltf");
   
-  // Apply shadows and material updates to the GLTF model
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      child.castShadow = true;
-      child.receiveShadow = true;
-      if (child.material) {
-        child.material.side = THREE.DoubleSide;
-        child.material.needsUpdate = true;
+  useMemo(() => {
+    scene.traverse((child: Object3D) => {
+      if (child instanceof Mesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if (child.material) {
+          (child.material as Material).side = THREE.DoubleSide;
+          (child.material as Material).needsUpdate = true;
+        }
       }
-    }
-  });
+    });
+  }, [scene]);
 
   useFrame(({ clock }) => {
     if (chairRef.current) {
@@ -79,54 +81,53 @@ function Chair() {
       ref={chairRef}
       object={scene}
       position={[0, 0.1, 0]}
-      scale={0.01}  // You might need to adjust this scale for the GLTF model
+      scale={0.01}
     />
   );
 }
 
 function DustParticles() {
-  const particlesRef = useRef();
+  const particlesRef = useRef<Points>(null);
   const particleCount = 800;
   
-  const positions = new Float32Array(particleCount * 3);
-  const velocities = new Float32Array(particleCount * 3);
-  
-  const generateStartPosition = () => {
-    const height = Math.random() * 3;
-    const spread = Math.random() * 2 - 1;
-    return {
+  const [positions, velocities] = useMemo(() => {
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount * 3);
+    
+    const generateStartPosition = () => ({
       x: 2 + Math.random() * 0.5,
-      y: height,
-      z: spread * (1 - height/4)
-    };
-  };
+      y: Math.random() * 3,
+      z: (Math.random() * 2 - 1) * (1 - (Math.random() * 3)/4)
+    });
 
-  const generateVelocity = () => {
-    return {
+    const generateVelocity = () => ({
       x: -0.002 - Math.random() * 0.003,
       y: (Math.random() - 0.5) * 0.0015,
       z: (Math.random() - 0.5) * 0.001
-    };
-  };
+    });
 
-  for (let i = 0; i < particleCount; i++) {
-    const i3 = i * 3;
-    const pos = generateStartPosition();
-    const vel = generateVelocity();
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      const pos = generateStartPosition();
+      const vel = generateVelocity();
+      
+      positions[i3] = pos.x;
+      positions[i3 + 1] = pos.y;
+      positions[i3 + 2] = pos.z;
+      
+      velocities[i3] = vel.x;
+      velocities[i3 + 1] = vel.y;
+      velocities[i3 + 2] = vel.z;
+    }
     
-    positions[i3] = pos.x;
-    positions[i3 + 1] = pos.y;
-    positions[i3 + 2] = pos.z;
-    
-    velocities[i3] = vel.x;
-    velocities[i3 + 1] = vel.y;
-    velocities[i3 + 2] = vel.z;
-  }
+    return [positions, velocities];
+  }, []);
   
   useFrame(({ clock }) => {
     if (!particlesRef.current) return;
     
-    const positions = particlesRef.current.geometry.attributes.position.array;
+    const positionAttribute = particlesRef.current.geometry.getAttribute('position') as THREE.BufferAttribute;
+    const positions = positionAttribute.array as Float32Array;
     const time = clock.getElapsedTime();
     
     for (let i = 0; i < particleCount; i++) {
@@ -140,18 +141,13 @@ function DustParticles() {
       positions[i3 + 2] += velocities[i3 + 2] + zOffset;
       
       if (positions[i3] < -2 || Math.abs(positions[i3 + 2]) > 2) {
-        const newPos = generateStartPosition();
-        const newVel = generateVelocity();
-        positions[i3] = newPos.x;
-        positions[i3 + 1] = newPos.y;
-        positions[i3 + 2] = newPos.z;
-        velocities[i3] = newVel.x;
-        velocities[i3 + 1] = newVel.y;
-        velocities[i3 + 2] = newVel.z;
+        positions[i3] = 2 + Math.random() * 0.5;
+        positions[i3 + 1] = Math.random() * 3;
+        positions[i3 + 2] = (Math.random() * 2 - 1) * (1 - positions[i3 + 1]/4);
       }
     }
     
-    particlesRef.current.geometry.attributes.position.needsUpdate = true;
+    positionAttribute.needsUpdate = true;
   });
   
   return (
@@ -162,6 +158,7 @@ function DustParticles() {
           count={particleCount}
           array={positions}
           itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial

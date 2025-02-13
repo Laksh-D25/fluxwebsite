@@ -5,7 +5,7 @@ const navigation = {
         {
             name: 'Flux BYC Instagram',
             href: 'https://www.instagram.com/fluxbyc/',
-            icon: (props) => (
+            icon: (props: React.SVGProps<SVGSVGElement>) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
                     fillRule="evenodd"
@@ -18,7 +18,7 @@ const navigation = {
         {
             name: 'Samagra Instagram',
             href: 'https://www.instagram.com/samagra_cs/',
-            icon: (props) => (
+            icon: (props: React.SVGProps<SVGSVGElement>) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                 <path
                     fillRule="evenodd"
@@ -31,7 +31,7 @@ const navigation = {
         {
             name: 'flux.csbyc@christuniversity.in',
             href: 'mailto:flux.csbyc@christuniversity.in',
-            icon: (props) => (
+            icon: (props: React.SVGProps<SVGSVGElement>) => (
                 <EnvelopeIcon className="size-6" {...props} />
             ),
         },

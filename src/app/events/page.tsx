@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState, useRef, useMemo, useEffect } from "react";
-import { Field, Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import Loading3DModel from "../components/Loading3DModel";
 import QuantumJump from "../components/QuantumJump";
@@ -401,9 +401,6 @@ export default function EventsPage() {
                             </div>
                         </div>
                     </div>
-
-                    
-                   
                 </>
             )}
         </div>
