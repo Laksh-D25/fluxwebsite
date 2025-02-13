@@ -15,6 +15,7 @@ const quadFont = localFont({
 })
 
 import "./globals.css";
+import 'primeicons/primeicons.css';
 
 export const metadata: Metadata = {
   title: "Flux 2025",
@@ -28,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${arianFont.variable} ${quadFont.variable} ${arianFont.className}`}>
+      <body className={`${arianFont.variable} ${quadFont.variable} ${arianFont.className} text-white`}>
         <Navbar/>
         <main className="flex-grow">
           {children}

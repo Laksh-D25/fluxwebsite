@@ -7,11 +7,27 @@
   --foreground: #171717;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root { 
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+.duration-3000 {
+  transition-duration: 4000ms;
 }
 
 body {

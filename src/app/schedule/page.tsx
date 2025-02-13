@@ -163,7 +163,12 @@ export default function ScheduleTable() {
       </div>
       <div className="relative z-10 pt-24 pb-32">
         <div className="max-w-7xl mx-auto px-4">
-          <img src="/img/fluxLogo1.png" className="w-48 mx-auto" />
+          <h1 
+              className="ml-2 lg:-mt-7 mb-6 font-quad text-center text-[100px]" 
+              style={{ fontFamily: 'var(--font-quad)' }}
+          >
+            Flux
+          </h1>
 
           <div className="flex gap-4 mb-8 justify-center">
             <button
