@@ -120,10 +120,10 @@ export default function TeamPage(){
             <div className="relative z-10 pt-24 pb-32">
             <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
                 <div className="mx-auto max-w-2xl">
-                <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">Meet The Team Behind FLUX</h2>
-                <p className="mt-6 text-lg/2 text-gray-400 ">
-                We are a passionate and driven team, committed to pushing boundaries and creating an unforgettable experience. With innovation at our core, we work tirelessly to bring FLUX: Into The Quantum Verse to life, ensuring every participant gets the best possible event. From meticulously crafted challenges to seamless execution, our team is dedicated to making FLUX an electrifying journey into the future of technology and creativity. 
-                </p>
+                    <h2 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">Meet The Team Behind FLUX</h2>
+                    <p className="mt-6 text-lg/2 text-gray-400 ">
+                    We are a passionate and driven team, committed to pushing boundaries and creating an unforgettable experience. With innovation at our core, we work tirelessly to bring FLUX: Into The Quantum Verse to life, ensuring every participant gets the best possible event. From meticulously crafted challenges to seamless execution, our team is dedicated to making FLUX an electrifying journey into the future of technology and creativity. 
+                    </p>
                 </div>
                 <div className="flex justify-center my-12">
                     <TabGroup>

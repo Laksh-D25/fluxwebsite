@@ -169,6 +169,12 @@ export default function ScheduleTable() {
           >
             Flux
           </h1>
+          <h1 
+              className="ml-2 lg:-mt-7 mb-6 font-quad text-center text-2xl" 
+          >
+            Schedule
+          </h1>
+          
 
           <div className="flex gap-4 mb-8 justify-center">
             <button
