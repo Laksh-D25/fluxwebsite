@@ -27,7 +27,6 @@ export async function POST(request: Request) {
       const data = await resend.emails.send({
         from: 'Your Contact Form <onboarding@resend.dev>',
         to: ['flux.csbyc@christuniversity.in'],
-        reply_to: email,
         subject: `New Contact Form Submission from ${firstName} ${lastName}`,
         html: `
           <h2>New Contact Form Submission</h2>
