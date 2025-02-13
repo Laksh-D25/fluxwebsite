@@ -1,13 +1,14 @@
 "use client";
 
 import { Suspense, useState, useRef, useMemo, useEffect } from "react";
-import { Field, Select } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-const Globe = dynamic(() => import("react-globe.gl"), { ssr: false });
+import { Field, Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import Loading3DModel from "../components/Loading3DModel";
+import QuantumJump from "../components/QuantumJump";
+const Globe = dynamic(() => import("react-globe.gl"), { ssr: false, loading: QuantumJump });
 const VP = dynamic(() => import("../components/VanishingPoint"), { ssr: false });
 import dynamic from "next/dynamic";
 import clsx from 'clsx'
-import Loading3DModel from "../components/Loading3DModel";
 import { useRouter } from 'next/navigation'
 
 const StarField = dynamic(() => import("../components/StarField"), { ssr: false });
@@ -22,7 +23,7 @@ export default function EventsPage() {
         { name: "New York City, Confederate States Of New England", lat: 37, lng: -74.0060, img: "8.png", stackIndex: 1, desc: "With the Soviet Union's AI war machine reshaping the world, will you resist its expansion or embrace its rule? The fate of nations hangs in the balance.", type: "MUN - UNSC",  url: "/events/digitaldystopia", event_name: 'Digital Dystopia' },
         { name: "Berlin, German Democratic Republic", lat: 52.5200, lng: 13.4050, img: "2.png", stackIndex: 0, desc: "Infiltrate the GDR's Ministry of Propaganda through a high-stakes web-building contest. Master HTML, CSS, and JavaScript to outcode, outthink, and outmaneuver your rivals.", type: "Web Development",  url: "/events/wortundmacht", event_name: 'Wort und Macht' },
         { name: "World", lat: 9.033872, lng: 38.750080, img: "13.png", stackIndex: 0, desc: "Capture the essence of Flux through photography, reels, and videography—but with a twist! Integrate a surprise object or topic into your work and showcase your creativity.", type: "Photography",  url: "/events/pravda", event_name: 'Pravda' },
-        { name: "Vorkuta, Union Of Soviet Socialist Republics", lat: 67.5, lng: 64.0, img: "6.png", stackIndex: 0, desc: "Trapped in a Soviet gulag, you and your partner face Marshal Sokolov's brutal test. Answer correctly to survive—outsmart him to escape.", type: "IT Quiz",  url: "/events/dopros", event_name: 'ДΟПΡΟС' },
+        { name: "Vorkuta, Union Of Soviet Socialist Republics", lat: 67.5, lng: 64.0, img: "6.png", stackIndex: 0, desc: "Trapped in a Soviet gulag, you and your partner face Marshal Sokolov's brutal test. Answer correctly to survive—outsmart him to escape.", type: "IT Quiz",  url: "/events/dopros", event_name: 'Dopros' },
         { name: "Bangalore, South Asian Union", lat: 12.9716, lng: 77.5946, img: "1.png", stackIndex: 0, desc: "A high-energy clash of creativity, innovation, and strategy. Build, develop, and pitch your startup while competing against rivals to claim the title of \"Most Successful Startup.\"", type: "Hackathon",  url: "/events/startathon", event_name: 'Startathon' },
         { name: "Bangalore, South Asian Union", lat: 9, lng: 77.5946, img: "3.png", stackIndex: 1, desc: "A high-stakes cyber challenge where deception and logic collide. Trace digital remnants, decrypt buried secrets, and outlast system defenses. With every keystroke, the truth unravels—but are you ready for what you'll uncover?", type: "Coding & Debugging",  url: "/events/algol", event_name: 'Algol' },
         { name: "Shenzen, Republic Of China", lat: 22.5431, lng: 114.0579, img: "11.png", stackIndex: 0, desc: "Drop in, fight hard, and outlast the competition. Only the best survive. Will you claim victory?", type: "BGMI", url: "/events/bgmi", event_name: 'BGMI' },
@@ -77,6 +78,7 @@ export default function EventsPage() {
             // Update states together to prevent extra render
             setCurrentIndex(newIndex);
             setShowVanishingPoint(false);
+            setSelectedEvent(places[newIndex]);
             
             await new Promise(resolve => setTimeout(resolve, 50));
             setOpacity(1);
@@ -90,6 +92,7 @@ export default function EventsPage() {
         } else {
             // Regular globe navigation
             setCurrentIndex(newIndex);
+            setSelectedEvent(places[newIndex]);
             if (places[newIndex].name.includes("The Concious")) {
                 handleTransition();
             } else {
@@ -110,6 +113,7 @@ export default function EventsPage() {
             // Bundle state updates
             setCurrentIndex(newIndex);
             setShowVanishingPoint(false);
+            setSelectedEvent(places[newIndex]);
             
             await new Promise(resolve => setTimeout(resolve, 50));
             setOpacity(1);
@@ -122,6 +126,7 @@ export default function EventsPage() {
             }, 100);
         } else {
             setCurrentIndex(newIndex);
+            setSelectedEvent(places[newIndex]);
             // Add check for The Conscious when going backwards
             if (places[newIndex].name.includes("The Concious")) {
                 handleTransition();
@@ -142,6 +147,7 @@ export default function EventsPage() {
         if (index !== -1) {
             setCurrentIndex(index);
             focusOnLocation(place.lat, place.lng);
+            setSelectedEvent(place);
         }
 
         if (place.name.includes("The Concious")) {
@@ -161,6 +167,29 @@ export default function EventsPage() {
             globeRef.current.controls().enablePan = false;
         }
     }, [globeLoaded]);
+
+    function getIndex(place){
+        for (let i = 0; i < places.length; i++) {
+            if (places[i].event_name === place.event_name) {
+                return i;
+            }
+        }
+    }
+
+    useEffect(() => {
+        let index = getIndex(selectedEvent);
+
+        
+        if (index !== -1) {
+            setCurrentIndex(index);
+            focusOnLocation(selectedEvent.lat, selectedEvent.lng);
+        }
+
+        if (selectedEvent.name.includes("The Concious")) {
+            handleTransition();
+        }
+
+      }, [selectedEvent]);
 
     return (
         <div className="relative w-full h-screen bg-black overflow-hidden">
@@ -190,7 +219,7 @@ export default function EventsPage() {
                                         animateIn={false}
                                         onGlobeReady={() => setGlobeLoaded(true)}
                                         backgroundColor="rgba(0, 0, 0, 0)" 
-                                        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+                                        globeImageUrl="/earth-night.jpg"
                                         htmlElementsData={places}
                                         htmlElement={(place) => {
                                             const el = document.createElement("div");
@@ -251,7 +280,42 @@ export default function EventsPage() {
                     <div className="block lg:hidden">
                         <div className="absolute bottom-10 z-20 flex justify-center w-full">
                             <div className="grid grid-rows-2 gap-5"> 
-                                <img src={places[currentIndex].img} className="w-full h-[50px]" alt={places[currentIndex].name} ></img>
+                                <Listbox value={selectedEvent} onChange={setSelectedEvent}>
+                                <ListboxButton
+                                    className={clsx(
+                                    'relative block w-full rounded-lg bg-white/5 py-1.5 pr-8 pl-3 text-left text-sm/6 text-white',
+                                    'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25',
+                                    )}
+                                >
+                                    {selectedEvent.event_name}
+                                    <ChevronDownIcon
+                                    className="pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
+                                    aria-hidden="true"
+                                    />
+                                </ListboxButton>
+                                <ListboxOptions
+                                    anchor="bottom"
+                                    transition
+                                    className={clsx(
+                                    'absolute z-50 w-[var(--button-width)] rounded-xl border border-white/5 bg-white/10 backdrop-blur-md p-1',
+                                    // Set a fixed height that will show ~5 items
+                                    'h-40',
+                                    'overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-900',
+                                    'focus:outline-none transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0'
+                                    )}
+                                >
+                                    {places.map((p, index) => (
+                                    <ListboxOption
+                                        key={p.event_name}
+                                        value={p}
+                                        className="group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-white/10"
+                                    >
+                                        <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" />
+                                        <div className="text-sm/6 text-white">{p.event_name}</div>
+                                    </ListboxOption>
+                                    ))}
+                                </ListboxOptions>
+                                </Listbox>
                                 <div className="flex gap-4">
                                     <button 
                                         onClick={prevEvent} 
@@ -280,34 +344,47 @@ export default function EventsPage() {
                         </div>                        
                     </div>
 
-                    <div className="hidden lg:block absolute top-10 z-20 text-white text-xl px-4 py-2 m-10 rounded-md">
+                    <div className="hidden lg:block absolute top-10 z-10 text-white text-xl px-4 py-2 m-10 rounded-md">
                         <div className="w-[300px] overflow-hidden rounded-lg shadow-sm border backdrop-blur-md 2xl:backdrop-blur-sm bg-white/10">
                             <div className="grid grid-rows-auto gap-5 px-4 py-5 sm:p-6">
                             <div className="w-full max-w-md px-4">
-                                    <Field>
-                                        <div className="relative">
-                                        <Select
-                                            value={selectedEvent}
-                                            onChange={setSelectedEvent}
-                                            className={clsx(
-                                            ' block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
-                                            'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25',
-                                            // Make the text of each option black on Windows
-                                            '*:text-black'
-                                            )}
-                                        >
-                                            {places.map((place, index) => (
-                                            <option key={index} value={index}>
-                                                {place.event_name}
-                                            </option>
-                                            ))}
-                                        </Select>
-                                        <ChevronDownIcon
-                                            className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
-                                            aria-hidden="true"
-                                        />
-                                        </div>
-                                    </Field>
+                            <Listbox value={selectedEvent} onChange={setSelectedEvent}>
+                                <ListboxButton
+                                    className={clsx(
+                                    'relative block w-full rounded-lg bg-white/5 py-1.5 pr-8 pl-3 text-left text-sm/6 text-white',
+                                    'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25',
+                                    )}
+                                >
+                                    {selectedEvent.event_name}
+                                    <ChevronDownIcon
+                                    className="pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
+                                    aria-hidden="true"
+                                    />
+                                </ListboxButton>
+                                <ListboxOptions
+                                    anchor="bottom"
+                                    transition
+                                    className={clsx(
+                                    'absolute z-50 w-[var(--button-width)] rounded-xl border border-white/5 bg-white/10 backdrop-blur-md p-1',
+                                    // Set a fixed height that will show ~5 items
+                                    'h-40',
+                                    'overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-900',
+                                    'focus:outline-none transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0'
+                                    )}
+                                >
+                                    {places.map((p, index) => (
+                                    <ListboxOption
+                                        key={p.event_name}
+                                        value={p}
+                                        className="group flex cursor-default items-center gap-2 rounded-lg py-1.5 px-3 select-none data-[focus]:bg-white/10"
+                                    >
+                                        <CheckIcon className="invisible size-4 fill-white group-data-[selected]:visible" />
+                                        <div className="text-sm/6 text-white">{p.event_name}</div>
+                                    </ListboxOption>
+                                    ))}
+                                </ListboxOptions>
+                                </Listbox>
+
                                     </div>
                                 <img src={places[currentIndex].img} className="w-[250px] h-[50px]" alt={places[currentIndex].name} />
                                 <p className="text-center text-2xl">{places[currentIndex].type}</p>

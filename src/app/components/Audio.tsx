@@ -6,14 +6,17 @@ const AUDIO_STATE_KEY = 'audioPlayerState';
 
 const PersistentAudio = () => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const [isMuted, setIsMuted] = useState(() => {
-
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem(AUDIO_STATE_KEY);
-            return saved ? JSON.parse(saved).isMuted : true;
+    // Start with a default value
+    const [isMuted, setIsMuted] = useState(true);
+    
+    // Move localStorage initialization to useEffect
+    useEffect(() => {
+        const saved = localStorage.getItem(AUDIO_STATE_KEY);
+        if (saved) {
+            const savedState = JSON.parse(saved);
+            setIsMuted(savedState.isMuted);
         }
-        return true;
-    });
+    }, []);
 
     useEffect(() => {
 

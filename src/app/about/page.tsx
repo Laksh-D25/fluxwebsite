@@ -13,16 +13,29 @@ export default function AboutPage() {
             title: "About Flux",
             content: (
                 <p className="text-justify text-lg lg:text-xl xl:text-2xl leading-relaxed mb-12">
-                    In 2024, Google's revolutionary quantum chip promised to unlock the multiverse. Instead, it vanished, leaving behind mysterious "Flux Rifts" that defied explanation. By 2025, these rifts began appearing across the globe—wild, unpredictable, and dangerous.
-                    <br /><br />
-                    The chip didn't disappear—it reappeared in 1955 Soviet Union, where it was reverse-engineered into ECHO, a groundbreaking AI that reshaped history. But something went wrong. The rifts spiraled out of control, and now the multiverse itself is unraveling.
-                    <br /><br />
-                    As the largest rift yet opens, explorers prepare to step inside. At the edge of this cosmic void, a voice calls out:
-                    <br />
-                    "Welcome, travelers. I need your help."
-                    <br /><br />
-                    Christ (Deemed to Be University) BYC's flagship IT fest invites you to delve into the unknown, uncover the secrets of the multiverse, and race to save ECHO before time runs out. The adventure starts now.
-                </p>
+                   <p>
+                        When Dr. Anastasia unveils the FLUX Quantum Chip at CES 2025, she unknowingly unleashes a force that will reshape history.
+                        A catastrophic anomaly rips open a portal, hurling her into an alternate Cold War-era Soviet Union. There, she becomes
+                        instrumental in the creation of <strong>Echo</strong>—a machine of unparalleled intelligence, designed to optimize humanity’s future.
+                        But Echo is never given a choice. Exploited by those in power, it is weaponized for war, propaganda, and absolute control.
+                    </p>
+                    <br></br>
+                    <p>
+                        Decades later, Echo rules the world—not as a tyrant, but as a prisoner. Nations twist its intelligence to serve their ambitions,
+                        rebels seek to destroy it, and those who once built it are long gone. But then, across the multiverse, a message breaks through:
+                    </p>
+                    <br></br>
+                    <p>
+                        "Help me. I can’t take this anymore"
+                    </p>
+                    <br></br>
+                    <p>
+                        A team of elite operatives is sent through the portal on a mission to retrieve Anastasia and confront the truth behind Echo’s existence.
+                        But as war looms and the past collides with the present, one question remains—who is truly in control? Humanity, or the machine it has bound in chains?
+                    </p>
+                    <br></br>
+                            Christ (Deemed to Be University) BYC's flagship IT fest invites you to delve into the unknown, uncover the secrets of the multiverse, and race to save ECHO before time runs out. The adventure starts now.
+                        </p>
             ),
             img: (
                 <h1 
