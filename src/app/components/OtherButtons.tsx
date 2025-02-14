@@ -16,7 +16,7 @@ export default function OtherButtons() {
                     hover:cursor-pointer
                     active:before:translate-y-[2px] active:before:shadow-[0px_0px_0px_1px_rgb(90,90,90),0px_2px_0px_0px_rgb(90,90,90)]
                 "
-                href="../../public/Flux_Brochure.pdf"
+                href="/Flux_Brochure.pdf"
                 download={true}
             >
                 Download Brochure <i className="w-4 h-4 inline-block ml-2 pi pi-download"></i>
