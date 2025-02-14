@@ -172,7 +172,6 @@ export default function TeamPage(){
                                         <li key={person.name} className="rounded-2xl bg-gray-800/30 backdrop-blur-md border border-gray-700 px-8 py-10 flex flex-col items-center"> {/* Flex column for centering */}
                                             {person.img !== null ? (
                                                 <img 
-                                                    alt={person.name} alt attribute for accessibility
                                                     src={person.img} 
                                                     className="mx-auto w-32 h-32 rounded-full object-cover md:w-40 md:h-40" // Responsive image sizing and object-cover
                                                 />

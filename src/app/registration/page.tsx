@@ -1,225 +1,247 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import dynamic from "next/dynamic";
-import { Suspense, useMemo } from "react";
-const StarField = dynamic(() => import("../components/StarField"), { ssr: false });
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
+// Type Definitions
 interface PassType {
-    bundle: string;
-    price: number;
-  }
-  
-  const passType: PassType[] = [
-    { bundle: "1 PASS", price: 200 },
-    { bundle: "3 PASSES", price: 500 },
-    { bundle: "BGMI/MUN PASS", price: 500 },
-    { bundle: "10 PASSES", price: 1700 },
-  ];
+  bundle: string;
+  price: number;
+}
 
-const EventRegistration = () => {
-    const event_list = [
-        { img: '7.png', type: 'normal', teamSize: 3, name: 'Facility Zero' },
-        { img: '4.png', type: 'normal', teamSize: 2, name: 'Build \'n\' Bid' },
-        { img: '5.png', type: 'normal', teamSize: 1, name: 'Technocrats Of Turmoil' },
-        { img: '8.png', type: 'mun', teamSize: 2, name: 'Digital Dystopia' },
-        { img: '2.png', type: 'normal', teamSize: 2, name: 'Wort und Macht' },
-        { img: '13.png', type: 'normal', teamSize: 1, name: 'Pravda' },
-        { img: '6.png', type: 'normal', teamSize: 2, name: 'Dopros' },
-        { img: '1.png', type: 'normal', teamSize: 1, name: 'Startathon' },
-        { img: '3.png', type: 'normal', teamSize: 2, name: 'Algol' },
-        { img: '11.png', type: 'bgmi', teamSize: 4, name: 'BGMI' },
-        { img: '9.png', type: 'special', teamSize: 2, passesNeeded: 1, name: 'The Vanishing Point' }
-    ];
+interface BaseEvent {
+  img: string;
+  type: EventType;
+  teamSize: number;
+  name: string;
+}
 
-    // Adding Race Against Time separately for display
-    const raceAgainstTime = {
-        img: '12.png',
-        type: 'free',
-        teamSize: 1,
-        name: 'Race Against Time'
-    };
+interface NormalEvent extends BaseEvent {
+  type: 'normal';
+}
 
-    const [teamCounts, setTeamCounts] = useState({});
-    const [isEventsExpanded, setIsEventsExpanded] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [passes, setPasses] = useState({
-        normal: 0,
-        mun: 0,
-        bgmi: 0
+interface MunEvent extends BaseEvent {
+  type: 'mun';
+}
+
+interface BgmiEvent extends BaseEvent {
+  type: 'bgmi';
+}
+
+interface SpecialEvent extends BaseEvent {
+  type: 'special';
+  passesNeeded: number;
+}
+
+interface FreeEvent extends BaseEvent {
+  type: 'free';
+}
+
+type Event = NormalEvent | MunEvent | BgmiEvent | SpecialEvent | FreeEvent;
+type EventType = 'normal' | 'mun' | 'bgmi' | 'special' | 'free';
+
+interface PassCounts {
+  normal: number;
+  mun: number;
+  bgmi: number;
+}
+
+interface TeamCounts {
+  [key: string]: number;
+}
+
+interface Category {
+  name: string;
+}
+
+interface PassRecommendation {
+  recommendation: string;
+  cost: number;
+}
+
+const StarField = dynamic(() => import("../components/StarField"), { ssr: false });
+
+const passType: PassType[] = [
+  { bundle: "1 PASS", price: 200 },
+  { bundle: "3 PASSES", price: 500 },
+  { bundle: "BGMI/MUN PASS", price: 500 },
+  { bundle: "10 PASSES", price: 1700 },
+];
+
+const event_list: Event[] = [
+  { img: '7.png', type: 'normal', teamSize: 3, name: 'Facility Zero' },
+  { img: '4.png', type: 'normal', teamSize: 2, name: 'Build \'n\' Bid' },
+  { img: '5.png', type: 'normal', teamSize: 1, name: 'Technocrats Of Turmoil' },
+  { img: '8.png', type: 'mun', teamSize: 2, name: 'Digital Dystopia' },
+  { img: '2.png', type: 'normal', teamSize: 2, name: 'Wort und Macht' },
+  { img: '13.png', type: 'normal', teamSize: 1, name: 'Pravda' },
+  { img: '6.png', type: 'normal', teamSize: 2, name: 'Dopros' },
+  { img: '1.png', type: 'normal', teamSize: 1, name: 'Startathon' },
+  { img: '3.png', type: 'normal', teamSize: 2, name: 'Algol' },
+  { img: '11.png', type: 'bgmi', teamSize: 4, name: 'BGMI' },
+  { img: '9.png', type: 'special', teamSize: 2, passesNeeded: 1, name: 'The Vanishing Point' }
+];
+
+const raceAgainstTime: FreeEvent = {
+  img: '12.png',
+  type: 'free',
+  teamSize: 1,
+  name: 'Race Against Time'
+};
+
+const EventRegistration: React.FC = () => {
+  const [teamCounts, setTeamCounts] = useState<TeamCounts>({});
+  const [isEventsExpanded, setIsEventsExpanded] = useState<boolean>(false);
+  const [passes, setPasses] = useState<PassCounts>({
+    normal: 0,
+    mun: 0,
+    bgmi: 0
+  });
+
+const getPassCalculation = (event: Event | undefined, numTeams: number): string => {
+    if (!event) return '';
+    
+    switch (event.type) {
+        case 'normal':
+            return event.teamSize === 1 
+                ? `${numTeams} Participants = ${numTeams} FLUX passes`
+                : `${numTeams} teams × ${event.teamSize} members = ${numTeams * event.teamSize} FLUX passes`;
+        case 'mun':
+            const passesPerTeam = event.teamSize === 1 ? 1 : 2;
+            return `${numTeams} teams × ${passesPerTeam} ${event.teamSize === 1 ? 'pass' : 'passes'} per team = ${numTeams * passesPerTeam} MUN passes`;
+        case 'bgmi':
+            return `${numTeams} teams × 4 members = ${numTeams} BGMI ${numTeams === 1 ? 'pass' : 'passes'} (1 pass per team of 4)`;
+        case 'special':
+            return `${numTeams} teams × 1 pass per team = ${numTeams} FLUX ${numTeams === 1 ? 'pass' : 'passes'} (1 pass covers 2 people)`;
+        case 'free':
+            return 'Free participation';
+        default:
+            return '';
+    }
+};
+
+  const calculatePasses = (): void => {
+    let normalPasses = 0;
+    let munPasses = 0;
+    let bgmiPasses = 0;
+
+    Object.entries(teamCounts).forEach(([eventImg, count]) => {
+      if (count > 0) {
+        const event = event_list.find(e => e.img === eventImg);
+        if (event) {
+          switch (event.type) {
+            case 'normal':
+              normalPasses += count * event.teamSize;
+              break;
+            case 'mun':
+              munPasses += count * (event.teamSize === 1 ? 1 : 2);
+              break;
+            case 'bgmi':
+              bgmiPasses += count;
+              break;
+            case 'special':
+              normalPasses += count * (event as SpecialEvent).passesNeeded;
+              break;
+          }
+        }
+      }
     });
 
-    const getPassCalculation = (event, numTeams) => {
-        switch (event.type) {
-            case 'normal':
-                return `${event.teamSize === 1 ? `${numTeams} Participants = ${numTeams} FLUX passes` : `${numTeams} teams × ${event.teamSize} members = ${numTeams * event.teamSize} FLUX passes`}`
-            case 'mun':
-                const passesPerTeam = event.teamSize === 1 ? 1 : 2;
-                return `${numTeams} teams × ${passesPerTeam} ${event.teamSize === 1 ? 'pass' : 'passes'} per team = ${numTeams * passesPerTeam} MUN passes`;
-            case 'bgmi':
-                return `${numTeams} teams × 4 members = ${numTeams} BGMI ${numTeams === 1 ? 'pass' : 'passes'} (1 pass per team of 4)`;
-            case 'special':
-                return `${numTeams} teams × 1 pass per team = ${numTeams} FLUX ${numTeams === 1 ? 'pass' : 'passes'} (1 pass covers 2 people)`;
-            default:
-                return '';
-        }
+    setPasses({ normal: normalPasses, mun: munPasses, bgmi: bgmiPasses });
+  };
+
+  useEffect(() => {
+    calculatePasses();
+  }, [teamCounts]);
+
+  const updateTeamCount = (eventImg: string, count: number): void => {
+    setTeamCounts(prev => ({
+      ...prev,
+      [eventImg]: count
+    }));
+  };
+
+  const getSelectedEvents = (): string[] => {
+    return Object.entries(teamCounts)
+      .filter(([, count]) => count > 0)
+      .map(([img]) => img);
+  };
+
+  const leftoverCost = (leftover: number): { cost: number; breakdown: string[] } => {
+    switch (leftover) {
+      case 0: return { cost: 0, breakdown: [] };
+      case 1: return { cost: 200, breakdown: ["1 × 1 FLUX Pass (₹200)"] };
+      case 2: return { cost: 400, breakdown: ["2 × 1 FLUX Pass (₹400)"] };
+      case 3: return { cost: 500, breakdown: ["1 × 3 FLUX Pass Pack (₹500)"] };
+      case 4: return { cost: 700, breakdown: ["1 × 3 FLUX Pass Pack (₹500)", "1 × FLUX Pass (₹200)"] };
+      case 5: return { cost: 900, breakdown: ["1 × 3 FLUX Pass Pack (₹500)", "2 × FLUX Pass (₹400)"] };
+      case 6: return { cost: 1000, breakdown: ["2 × 3 FLUX Pass Pack (₹1000)"] };
+      case 7: return { cost: 1200, breakdown: ["2 × 3 FLUX Pass Pack (₹1000)", "1 × FLUX Pass (₹200)"] };
+      case 8: return { cost: 1400, breakdown: ["2 × 3 FLUX Pass Pack (₹1000)", "2 × FLUX Pass (₹400)"] };
+      case 9: return { cost: 1500, breakdown: ["3 × 3 FLUX Pass Pack (₹1500)"] };
+      default: return { cost: 0, breakdown: [] };
+    }
+  };
+
+  const getFluxPackRecommendation = (passCount: number): PassRecommendation => {
+    if (passCount <= 0) {
+      return { recommendation: "", cost: 0 };
+    }
+
+    const tenPacks = Math.floor(passCount / 10);
+    const leftover = passCount % 10;
+    let cost = tenPacks * 1700;
+
+    const breakdown: string[] = [];
+    if (tenPacks > 0) {
+      breakdown.push(`${tenPacks} × 10 FLUX Pass Pack (₹${cost})`);
+    }
+
+    const leftoverObj = leftoverCost(leftover);
+    cost += leftoverObj.cost;
+    breakdown.push(...leftoverObj.breakdown);
+
+    return {
+      recommendation: breakdown.length > 0 ? "• " + breakdown.join(" + ") : "",
+      cost,
     };
+  };
 
-    const calculatePasses = () => {
-        let normalPasses = 0;
-        let munPasses = 0;
-        let bgmiPasses = 0;
+  const recommendFluxPasses = (): string[] => {
+    const recommendations: string[] = [];
+    const totalPasses = passes.normal + passes.mun + passes.bgmi;
 
-        Object.entries(teamCounts).forEach(([eventImg, count]) => {
-            if (count > 0) {
-                const event = event_list.find(e => e.img === eventImg);
-                if (event) {
-                    switch (event.type) {
-                        case 'normal':
-                            normalPasses += count * event.teamSize;
-                            break;
-                        case 'mun':
-                            munPasses += count * (event.teamSize === 1 ? 1 : 2);
-                            break;
-                        case 'bgmi':
-                            bgmiPasses += count;
-                            break;
-                        case 'special':
-                            normalPasses += count * event.passesNeeded;
-                            break;
-                    }
-                }
-            }
-        });
+    if (totalPasses > 0) {
+      const fluxPack = getFluxPackRecommendation(passes.normal);
+      if (fluxPack.recommendation) {
+        recommendations.push(fluxPack.recommendation);
+      }
 
-        setPasses({ normal: normalPasses, mun: munPasses, bgmi: bgmiPasses });
-    };
+      if (passes.bgmi > 0) {
+        recommendations.push(`• ${passes.bgmi} × BGMI Pass (₹${passes.bgmi * 500})`);
+      }
+      if (passes.mun > 0) {
+        recommendations.push(`• ${passes.mun} × MUN Pass (₹${passes.mun * 500})`);
+      }
 
-    useEffect(() => {
-        calculatePasses();
-    }, [teamCounts]);
+      const totalCost = fluxPack.cost + passes.bgmi * 500 + passes.mun * 500;
+      recommendations.push(`• Total Cost: ₹${totalCost}`);
+    } else {
+      recommendations.push("• No events selected. Choose your events to see pass recommendations.");
+    }
 
-    const updateTeamCount = (eventImg, count) => {
-        setTeamCounts(prev => ({
-            ...prev,
-            [eventImg]: count
-        }));
-    };
+    return recommendations;
+  };
 
-    const getSelectedEvents = () => {
-        return Object.entries(teamCounts)
-            .filter(([_, count]) => count > 0)
-            .map(([img]) => img);
-    };
+  const MemoizedStarField = useMemo(() => (
+    <Suspense fallback={null}>
+      <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />
+    </Suspense>
+  ), []);
 
-    const recommendFluxPasses = () => {
-        const totalPasses = passes.normal + passes.mun + passes.bgmi;
-        const recommendations = [];
-      
-        // Calculate passes for each event type
-        const munPassNeeded = passes.mun;   // e.g. 2 passes per MUN team
-        const fluxPassNeeded = passes.normal;
-        const bgmiPassNeeded = passes.bgmi; // e.g. 1 pass per BGMI team
-      
-        // 1) Helper function for leftover 0..9
-        function leftoverCost(leftover) {
-          switch (leftover) {
-            case 0: return { cost: 0,   breakdown: [] };
-            case 1: return { cost: 200, breakdown: ["1 × 1 FLUX Pass (₹200)"] };
-            case 2: return { cost: 400, breakdown: ["2 × 1 FLUX Pass (₹400)"] };
-            case 3: return { cost: 500, breakdown: ["1 × 3 FLUX Pass Pack (₹500)"] };
-            case 4: return { cost: 700, breakdown: ["1 × 3 FLUX Pass Pack (₹500)", "1 × FLUX Pass (₹200)"] };
-            case 5: return { cost: 900, breakdown: ["1 × 3 FLUX Pass Pack (₹500)", "2 × FLUX Pass (₹400)"] };
-            case 6: return { cost: 1000, breakdown: ["2 × 3 FLUX Pass Pack (₹1000)"] };
-            case 7: return { cost: 1200, breakdown: ["2 × 3 FLUX Pass Pack (₹1000)", "1 × FLUX Pass (₹200)"] };
-            case 8: return { cost: 1400, breakdown: ["2 × 3 FLUX Pass Pack (₹1000)", "2 × FLUX Pass (₹400)"] };
-            case 9: return { cost: 1500, breakdown: ["3 × 3 FLUX Pass Pack (₹1500)"] };
-            default: return { cost: 0,   breakdown: [] }; // fallback
-          }
-        }
-      
-        // 2) Function to figure out total FLUX passes with minimal cost
-        function getFluxPackRecommendation(passCount) {
-          if (passCount <= 0) {
-            return { recommendation: "", cost: 0 };
-          }
-      
-          // How many 10-packs do we buy?
-          const tenPacks = Math.floor(passCount / 10);
-          const leftover  = passCount % 10;
-      
-          // Cost for the 10-packs
-          let cost = tenPacks * 1700;
-      
-          // Build initial breakdown for 10-packs
-          const breakdown = [];
-          if (tenPacks > 0) {
-            breakdown.push(`${tenPacks} × 10 FLUX Pass Pack (₹${cost})`);
-          }
-      
-          // Now handle leftover
-          const leftoverObj = leftoverCost(leftover);
-          cost += leftoverObj.cost;
-          // Merge leftover breakdown, if any
-          breakdown.push(...leftoverObj.breakdown);
-      
-          // Build final recommendation text
-          const recommendationText =
-            breakdown.length > 0
-              ? "• " + breakdown.join(" + ")
-              : "";
-      
-          return {
-            recommendation: recommendationText,
-            cost,
-          };
-        }
-      
-        // Generate overall recommendations
-        if (totalPasses > 0) {
-          // FLUX Pass recommendation
-          const fluxPack = getFluxPackRecommendation(fluxPassNeeded);
-          if (fluxPack.recommendation) {
-            recommendations.push(fluxPack.recommendation);
-          }
-      
-          // MUN and BGMI pass details
-          const specificPasses = [];
-          if (bgmiPassNeeded > 0) {
-            specificPasses.push(`• ${bgmiPassNeeded} × BGMI Pass (₹${bgmiPassNeeded * 500})`);
-          }
-          if (munPassNeeded > 0) {
-            specificPasses.push(`• ${munPassNeeded} × MUN Pass (₹${munPassNeeded * 500})`);
-          }
-          recommendations.push(...specificPasses);
-      
-          // Calculate total cost
-          const totalCost = fluxPack.cost
-                          + bgmiPassNeeded * 500
-                          + munPassNeeded * 500;
-          recommendations.push(`• Total Cost: ₹${totalCost}`);
-        } else {
-          // Fallback if no events selected
-          recommendations.push("• No events selected. Choose your events to see pass recommendations.");
-        }
-      
-        return recommendations;
-      };
-
-      
-      
-      
-    
-    
-    const MemoizedStarField = useMemo(() => (
-                <Suspense fallback={null}>
-                    <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />
-                </Suspense>
-        ), []);
-
-    const hasAnyEvents = getSelectedEvents().length > 0;
-    const categories = [{name: 'Instructions'}, {name: 'Register For FLUX'}]
+  const hasAnyEvents = getSelectedEvents().length > 0;
+  const categories: Category[] = [{ name: 'Instructions' }, { name: 'Register For FLUX' }];
 
     return (
         <div className="relative bg-black">
@@ -458,10 +480,13 @@ const EventRegistration = () => {
                                                     <>
                                                         {getSelectedEvents().map((eventImg, index) => {
                                                             const event = event_list.find(e => e.img === eventImg);
-                                                            const teamCount = teamCounts[eventImg];
+                                                            const teamCount = teamCounts[eventImg] || 0;
+                                                            
+                                                            if (!event) return null; // Skip rendering if event is not found
+                                                            
                                                             return (
                                                                 <div key={index} className="border-b pb-2">
-                                                                    <p className="font-medium mb-1 text-white">{event?.name}</p>
+                                                                    <p className="font-medium mb-1 text-white">{event.name}</p>
                                                                     <p className="text-sm text-white">
                                                                         {getPassCalculation(event, teamCount)}
                                                                     </p>
