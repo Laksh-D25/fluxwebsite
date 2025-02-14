@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${arianFont.variable} ${quadFont.variable} ${arianFont.className} text-white`}>
+      <body className={`${arianFont.variable} ${quadFont.variable} ${arianFont.className} text-white overflow-x-hidden`}>
         <Navbar/>
         <main className="flex-grow">
           {children}

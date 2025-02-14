@@ -24,58 +24,97 @@ export default function HeroSection() {
     };
 
     return (
-        <div className="relative w-full h-screen bg-black overflow-hidden -mt-5 lg:mt-0 xl:-mt-5">
+        <div className="relative w-full bg-black min-h-screen">
+            {/* Background container */}
             <div 
-                className={`absolute inset-0 z-0 bg-black transition-opacity duration-1000 ${
+                className={`fixed inset-0 z-0 bg-black transition-opacity duration-1000 ${
                     isWarping ? 'opacity-100' : 'opacity-0'
                 } ${showQuantumJump ? 'opacity-100' : ''}`}
             />
 
-            <div className="absolute inset-0 z-0">
-                {isWarping ? <QuantumJump />  : <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />}
-                
+            {/* StarField/QuantumJump container */}
+            <div className="fixed inset-0 z-10 overflow-hidden">
+                {isWarping ? (
+                    <QuantumJump />
+                ) : (
+                    <StarField count={typeof window !== "undefined" && window.innerWidth < 768 ? 500 : 700} />
+                )}
             </div>
 
-            <div 
-                className={`lg:-mt-10 -mt-14 absolute inset-0 z-20 text-white flex justify-center items-center flex-col 
-                    transition-all duration-3000 transform ${
-                        isWarping 
-                            ? 'scale-0 opacity-0' 
-                            : 'scale-100 opacity-100'
-                    }`}
-            >
-                <p className="text-center lg:text-[28px] sm:text-[20px] hidden lg:block">
-                    CHRIST [Deemed to be University], Bangalore Yestwanthpur Campus
-                </p>
-                <p className="text-center lg:text-[28px] sm:text-[23px] block lg:hidden mb-2">
-                    CHRIST [Deemed to be University]<br />
-                    <span className="sm:text-[20px]">Bangalore Yestwanthpur Campus</span>
-                </p>
-                <p className="text-center lg:text-[25px] sm:text-[17px] text-[15px]">
-                    Department of Computer Science
-                </p>
-                <p className="text-center lg:text-[20px] sm:text-[15px]">Presents</p>
-                <h1 
-                    className="ml-2 lg:-mt-7 mb-6 font-quad text-center lg:text-[200px] sm:text-[150px] text-[125px]" 
-                    style={{ fontFamily: 'var(--font-quad)' }}
-                >
-                    Flux
-                </h1>
-                <p className="-mt-16 lg:text-[35px] sm:text-xl">Into the Quantum Verse</p>
-                <p className="lg:text-[20px] sm:text-xl mt-4">February 27th - 28th, 2025</p>
-            </div>
+            {/* Content container */}
+            <div className="relative z-20 w-full min-h-screen py-16">
+                <div className="container mx-auto px-4">
+                    {/* Main Content */}
+                    <div className={`flex flex-col items-center justify-center py-8 text-white
+                        transition-all duration-3000 transform
+                        ${isWarping ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+                    >
+                        {/* Rest of the content remains the same */}
+                        {/* University Name - Desktop */}
+                        <p className="text-center text-lg sm:text-xl lg:text-2xl xl:text-3xl hidden lg:block">
+                            CHRIST [Deemed to be University], Bangalore Yestwanthpur Campus
+                        </p>
 
-            <div 
-                className={`mt-10 absolute xl:bottom-12 lg:bottom-40 bottom-3 xl:mb-2 md:mb-5 mb-2 
-                    space-y-5 w-full flex flex-col justify-center z-20 px-4 
-                    transition-all duration-3000 transform ${
-                        isWarping 
-                            ? 'scale-0 opacity-0' 
-                            : 'scale-100 opacity-100'
-                    }`}
-            >
-                <QuantumButton onClick={handleJump} />
-                <OtherButtons />
+                        {/* University Name - Mobile */}
+                        <p className="text-center text-xl sm:text-2xl block lg:hidden mb-2">
+                            CHRIST [Deemed to be University]<br />
+                            <span className="text-lg sm:text-xl">Bangalore Yestwanthpur Campus</span>
+                        </p>
+
+                        {/* Department Info */}
+                        <p className="text-center text-base sm:text-lg lg:text-xl xl:text-2xl mt-6">
+                            Department of Computer Science
+                        </p>
+
+                        <p className="text-center text-sm sm:text-base lg:text-lg xl:text-xl mt-4">
+                            Presents
+                        </p>
+
+                        {/* Main Title */}
+                        <h1 
+                            className="font-quad text-center text-7xl sm:text-8xl lg:text-9xl xl:text-[200px] 
+                                my-8 leading-none"
+                            style={{ fontFamily: 'var(--font-quad)' }}
+                        >
+                            Flux
+                        </h1>
+
+                        {/* Subtitle and Date */}
+                        <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl">
+                            Into the Quantum Verse
+                        </p>
+                        
+                        <p className="text-base sm:text-lg lg:text-xl mt-6">
+                            February 27th - 28th, 2025
+                        </p>
+                    </div>
+
+                    {/* Contact Section */}
+                    <div className={`text-white text-center mt-6 space-y-4 flex items-center justify-center w-full
+                        transition-all duration-3000 transform
+                        ${isWarping ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+                    >
+                        <div className="space-x-4 flex justify-center items-center w-fit px-10 py-5 bg-gray-800/30 border-[1px] border-gray-700 rounded-xl mx-5">
+                            <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-start h-full">Contact:</h2>
+                            <div className="space-y-2 text-justified text-end border-l border-gray-700 pl-2">
+                                <p className="text-sm sm:text-lg">
+                                    <u>Cris Grace:</u> +91 90350 10120
+                                </p>
+                                <p className="text-sm sm:text-lg">
+                                    <u>Anisha Kumari:</u> +91 75269 76187
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={`flex flex-col items-center justify-center xl:mt-8 lg:mt-6 mt-4 space-y-4
+                        transition-all duration-3000 transform
+                        ${isWarping ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+                    >
+                        <QuantumButton onClick={handleJump} />
+                        <OtherButtons />
+                    </div>
+                </div>
             </div>
         </div>
     );

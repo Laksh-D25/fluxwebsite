@@ -4,7 +4,6 @@ export default function QuantumJump() {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
-        // Ensure video plays when component mounts
         if (videoRef.current) {
             videoRef.current.play().catch(error => {
                 console.log("Video autoplay failed:", error);
@@ -13,13 +12,13 @@ export default function QuantumJump() {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="absolute inset-0 w-full h-full">
             <video 
                 ref={videoRef}
                 autoPlay
                 playsInline
                 muted 
-                className="object-cover w-full h-full"
+                className="w-full h-full object-cover"
             >
                 <source src="/img/GridWormhole.mp4" type="video/mp4" />
             </video>
